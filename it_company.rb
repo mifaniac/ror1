@@ -74,13 +74,7 @@ class SeniorDeveloper < Developer
   MAX_TASKS = 15
 
   def work!
-    [true, false].sample ? @task_list.shift(2) : puts("Что-то лень")
-#    good_mood = [true, false].sample
-#    if good_mood 
-#      @task_list.shift(2)
-#    else
-#      puts "Что-то лень"
-#    end
+    [true, false].sample ? 2.times { super } : puts("Что-то лень")
+    good_mood = [true, false].sample
   end
 end
-
