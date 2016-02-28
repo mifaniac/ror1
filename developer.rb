@@ -1,11 +1,17 @@
 class Developer
-  attr_accessor :dev_name
+  attr_accessor :name, :task_list
+
+
   MAX_TASKS = 10
   WORK_DONE = "выполнена задача"
 
-  def initialize(dev_name)
-    @dev_name = dev_name
+  def initialize(name)
+    @name = name
     @task_list = []
+  end
+
+  def type
+    :developer
   end
 
   def add_task(task_name)
@@ -14,12 +20,12 @@ class Developer
     else
       @task_list << task_name
       puts "%s: добавлена задача \"%s\". Всего в списке задач: %i" %
-        [@dev_name, task_name, @task_list.count]
+        [@name, task_name, @task_list.count]
     end
   end
 
   def tasks
-    @task_list.each_with_index {|task, index| puts "#{index+1}. #{task}"}
+    @task_list.map.with_index{|t,i| "#{i+1}. #{t}"}.join("\n")
   end
 
   def work!
@@ -27,7 +33,7 @@ class Developer
        raise("Нечего делать!")
     else
       puts "%s: %s \"%s\". Осталось задач: %i" %
-        [@dev_name, self.class::WORK_DONE, @task_list.shift, @task_list.count]
+        [@name, self.class::WORK_DONE, @task_list.shift, @task_list.count]
     end
   end
 
@@ -50,31 +56,4 @@ class Developer
     end
   end
 
-end
-
-#------------------------------------------------------------------------------
-
-class JuniorDeveloper < Developer
-  attr_accessor :dev_name
-
-  MAX_TASKS = 5
-  WORK_DONE = "пытаюсь делать задачу"
-  COMPLEXITY = 20
-
-  def add_task(task_name)
-    raise("Слишком сложно!") if task_name.length > COMPLEXITY
-    super
-  end
-end
-
-#------------------------------------------------------------------------------
-
-class SeniorDeveloper < Developer
-  
-  MAX_TASKS = 15
-
-  def work!
-    [true, false].sample ? 2.times { super } : puts("Что-то лень")
-    good_mood = [true, false].sample
-  end
 end
