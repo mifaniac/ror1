@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Онлайн петиции нашего района</title>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <div id="title">Онлайн петиции нашего района</div>
+    <div id="login">
+      <% if current_user %>
+        <%= current_user.email %> | <%= link_to "(Выйти)", '/logout' %>
+      <% else %>
+        <%= link_to 'Зарегистрироваться', '/signup' %> | <%= link_to 'Войти', '/login' %>
+      <% end %>
+
+      <%= yield %>
+    </div>
+  </div>
+  <div class="content">
+    <% if flash[:notice] %>
+    <div class="notice"><%= flash[:notice] %></div>
+    <% end %>
+    <h2>Петиция</h2>
+    <h3><%= @petition.title %></h3>
+    <div style="max-width: 560px; min-height: 300px"><%= @petition.description %>
+  </div>
+  <div class="sidebar">
+   <ul>
+     <li><%= link_to 'Все петиции', '/all' %></li>
+     <li><%= link_to 'Создать петицию', new_petition_path %></li>
+     <% if current_user %>
+     <li><%= link_to 'Мои петиции', '/my_petitions' %>
+              <% end %>
+     </li>
+  </ul>
+  </div>
+</div>
+</body>
+</html>
