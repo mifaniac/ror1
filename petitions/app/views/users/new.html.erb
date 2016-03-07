@@ -52,10 +52,10 @@
   </div>
   <div class="sidebar">
    <ul>
-     <li><%= link_to 'Все петиции', '/all' %></li>
+     <li><%= link_to 'Все петиции', '/?all=true' %></li>
      <li><%= link_to 'Создать петицию', new_petition_path %></li>
      <% if current_user %>
-     <li><%= link_to 'Мои петиции', '/my_petitions' %>
+     <li><%= link_to 'Мои петиции', '/?my=true' %>
               <% end %>
      </li>
   </ul>

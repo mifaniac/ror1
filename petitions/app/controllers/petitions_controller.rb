@@ -7,11 +7,16 @@ class PetitionsController < ApplicationController
   end
 
   def index
-    @petitions = Petition.select(params[:id]).last(10)
-  end
-
-  def all
-    @petitions = Petition.all
+    if params[:my]
+      @header_title = "Мои петиции"
+      @petitions = current_user.petitions.all
+    elsif params[:all]
+      @header_title = "Все петиции"
+      @petitions = Petition.all
+    else
+      @header_title = "Последние петиции"
+      @petitions = Petition.select(params[:id]).last(10).reverse
+    end
   end
 
   def create
@@ -29,14 +34,7 @@ class PetitionsController < ApplicationController
     @petition = Petition.find(params[:id])
   end
 
-  def my_petitions
-    @my_petitions = current_user.petitions.all
-  end
-
   def petition_params
     params.require(:petition).permit(:title, :description, :user_id)
-
   end
-
- 
 end
