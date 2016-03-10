@@ -1,0 +1,71 @@
+// Place all the styles related to the Petitions controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.container {
+  width: 800px; 
+  margin: 0 auto; 
+  position: relative;
+}
+
+.header {
+  padding: 5px; 
+  background: #E0E0E0;
+  height: 30px;
+ }
+
+#login {
+  float:right; 
+  margin-right: 20px;
+  background: #E0E0E0;
+}
+
+#title {
+  float: left;
+  background: #E0E0E0;
+}
+
+.content {
+  margin-right: 130px; 
+  padding: 10px;
+}
+
+.sidebar {
+  position: absolute; 
+  right: 0;
+  top: 60px; 
+  width: 220px; 
+  background: #E0E0E0;
+}
+
+table {
+    border-collapse: collapse;
+    width: 560px;
+}
+
+th {
+  height: 50px;
+}
+
+td {
+  width: 50%;
+}
+
+th, td {
+    border-bottom: 1px solid #ddd;
+}
+
+#petition_description {
+  width: 560px;
+  height: 300px;
+}
+
+span {
+  width: 560px;
+  height: 300px;
+}
+
+textarea {
+  width: 560px;
+  height: 300px;
+}
