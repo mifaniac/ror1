@@ -1,54 +1,30 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Онлайн петиции нашего района</title>
-</head>
-<body>
-<div class="container">
-  <div class="header">
-    <div id="title">Онлайн петиции нашего района</div>
-    <div id="login">
-      <% if current_user %>
-        <%= current_user.email %> | <%= link_to "(Выйти)", '/logout' %>
-      <% else %>
-        <%= link_to 'Зарегистрироваться', '/signup' %> | <%= link_to 'Войти', '/login' %>
-      <% end %>
-
-      <%= yield %>
-    </div>
-  </div>
-  <div class="content">
-    <% if flash[:notice] %>
-    <div class="notice"><%= flash[:notice] %></div>
+<table>
+  <tr>
+    <td style="border-bottom: 0"><h3><%= @header_title %></h3></td>
+  </tr>
+  <tr>
+    <td><strong>Петиция</strong></td>
+    <% unless params[:my] %>
+      <td><strong>Автор</strong></td>
     <% end %>
-    <table>
-      <tr>
-        <td style="border-bottom: 0"><h3><%= @header_title %></h3></td>
-      </tr>
-      <tr>
-        <td><strong>Петиция</strong></td>
-        <td><strong>Автор</strong></td>
-      </tr>
-      <% if @petitions %>
-            <% @petitions.each do |petition| %>
-            <tr>
-              <td><%= link_to petition.title, petition %></td>
-              <td><%= "#{petition.user.first_name} #{petition.user.last_name}" %></td>
-              <% end %>
-            <% end %>
-            </tr>
-    </table>
-  </div>
-  <div class="sidebar">
-   <ul>
-     <li><%= link_to 'Все петиции', '/?all=true' %></li>
-     <li><%= link_to 'Создать петицию', new_petition_path %></li>
-     <% if current_user %>
-     <li><%= link_to 'Мои петиции', '/?my=true' %>
-              <% end %>
-     </li>
-  </ul>
-  </div>
-</div>
-</body>
-</html>
+    <td><strong>Голоса</strong></td>
+    <td><strong>Дата создания</strong></td>
+    <% if params[:my] %>
+      <td><strong>Действия</strong></td>
+    <% end %>
+  </tr>
+  <% if @petitions %>
+        <% @petitions.each do |petition| %>
+        <tr>
+          <td><%= link_to petition.title, petition %></td>
+          <td><%= "#{petition.user.first_name} #{petition.user.last_name}" %></td>
+          <td><%= petition.votes.count %></td>
+          <td><%= petition.created_at %></td>
+          <% if params[:my] %>
+          <td><%= link_to 'Изменить', edit_petition_path(petition) %> <%= link_to 'Удалить', petition, method: :delete %></td>
+          <% end %>
+          <% end %>
+        <% end %>
+
+        </tr>
+</table>

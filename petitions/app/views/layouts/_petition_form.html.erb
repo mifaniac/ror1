@@ -1,0 +1,8 @@
+<%= form_for @petition do |f| %>
+  Название: <br>
+  <%= f.text_field :title %> <br>
+  Описание: <br>
+  <%= f.text_area :description %><br>
+  <br>
+  <%= f.submit submit_title %>
+  <% end %>

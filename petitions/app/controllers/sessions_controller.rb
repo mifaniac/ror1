@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
       redirect_to '/'
     else
       flash[:notice] = "Неправильный email или пароль."
-      redirect_to "/login"
+      redirect_to login_url
     end
   end
 

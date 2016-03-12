@@ -5,11 +5,12 @@ class ApplicationController < ActionController::Base
 
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
+    rescue ActiveRecord::RecordNotFound
   end
   helper_method :current_user
 
   def authorize
-    redirect_to '/login', notice: "Вы не вошли в свой аккаунт!" unless current_user
+    redirect_to login_url, notice: "Вы не вошли в свой аккаунт!" unless current_user
   end
   
 end

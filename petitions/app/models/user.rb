@@ -8,5 +8,7 @@ class User < ActiveRecord::Base
   validates :password, presence: true, length: { minimum: 6 }, :confirmation => true
 
   has_many :petitions
+  has_many :votes, through: :petitions
+
   
 end

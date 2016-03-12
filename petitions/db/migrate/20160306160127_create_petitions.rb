@@ -4,8 +4,9 @@ class CreatePetitions < ActiveRecord::Migration
       t.string :title
       t.string :description
       t.integer :user_id
+      t.integer :vote_id
 
-      t.timestamps null: false
+      t.timestamps :date
     end
   end
 end
