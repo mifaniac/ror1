@@ -1,26 +1,27 @@
 <h3>Регистрация</h3>
 
 <%= form_for :user, url: '/users' do |f| %>
-  <% if @user.errors.any? %>
-  Form is invalid
-  <ul>
-    <% @user.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-      <% end %>
-      <% end %>
 
-  </ul>
-  Email: <br>
-  <%= f.text_field :email %><br>
-  Имя: <br>
-  <%= f.text_field :first_name %><br>
-  Фамилия: <br>
-  <%= f.text_field :last_name %><br>
-  Пароль: <br>
-  <%= f.password_field :password %><br>
-  Подтверждение пароля: <br>
-  <%= f.password_field :password_confirmation %><br>
-  <br>
-  <%= f.submit "Зарегистрироваться" %>
+<div class="input-group">
+  <%= f.text_field :email, class: "form-control", placeholder: "Email" %>
+</div>
+<br>
+<div class="input-group">
+  <%= f.text_field :first_name, class: "form-control", placeholder: "Ваше имя" %>
+</div>
+<br>
+<div class="input-group">
+  <%= f.text_field :last_name, class: "form-control", placeholder: "Ваша фамилия" %>
+</div>
+<br>
+<div class="input-group">
+  <%= f.text_field :password, class: "form-control", placeholder: "Пароль", type: "password" %>
+</div>
+<br>
+<div class="input-group">
+  <%= f.text_field :password_confirmation, class: "form-control", placeholder: "Подтверждение пароля", type: "password" %>
+</div>
+<br>
+  <%= f.submit "Зарегистрироваться", class: "btn btn-success" %>
 <% end %>
 

@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 20160311193655) do
 
   create_table "petitions", force: :cascade do |t|
     t.string   "title"
-    t.string   "description"
+    t.text     "description"
     t.integer  "user_id"
     t.integer  "vote_id"
     t.datetime "created_at"

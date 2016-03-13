@@ -1,7 +1,5 @@
-<table>
-  <tr>
-    <td style="border-bottom: 0"><h3><%= @header_title %></h3></td>
-  </tr>
+<table class="table">
+  <caption><h4><%= @header_title %></h4></caption>
   <tr>
     <td><strong>Петиция</strong></td>
     <% unless params[:my] %>
@@ -17,11 +15,13 @@
         <% @petitions.each do |petition| %>
         <tr>
           <td><%= link_to petition.title, petition %></td>
-          <td><%= "#{petition.user.first_name} #{petition.user.last_name}" %></td>
+          <% unless params[:my] %>
+            <td><%= "#{petition.user.first_name} #{petition.user.last_name}" %></td>
+          <% end %>
           <td><%= petition.votes.count %></td>
-          <td><%= petition.created_at %></td>
+          <td><%= petition.created_at.strftime('%d/%m/%Y %H:%M') %></td>
           <% if params[:my] %>
-          <td><%= link_to 'Изменить', edit_petition_path(petition) %> <%= link_to 'Удалить', petition, method: :delete %></td>
+          <td><%= link_to raw("<i class='glyphicon glyphicon-pencil'></i> Изменить"), edit_petition_path(petition), class: "btn btn-warning btn-xs" %> <%= link_to raw("<i class='glyphicon glyphicon-remove'></i> Удалить"), petition, method: :delete, class: "btn btn-danger btn-xs" %></td>
           <% end %>
           <% end %>
         <% end %>

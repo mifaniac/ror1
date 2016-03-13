@@ -26,7 +26,7 @@ class PetitionsController < ApplicationController
         flash[:notice] = "Вы успешно создали петицию"
         redirect_to @petition
       else
-        flash[:error] = 'Произошла ошибка! Попробуйте еще раз.'
+        flash[:errors] = ['Произошла ошибка! Попробуйте еще раз.']
         render 'new'
       end
   end
@@ -61,7 +61,8 @@ class PetitionsController < ApplicationController
 
   def destroy
     @petition = Petition.find(params[:id])
-    @petition.destroys   
+    @petition.destroy
+    flash[:errors] = ["Петиция удалена"]
     redirect_to petitions_path
   end
 

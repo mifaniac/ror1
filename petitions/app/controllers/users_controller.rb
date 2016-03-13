@@ -11,7 +11,7 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect_to '/', notice: 'Вы успешно зарегистрированы'
     else
-      flash[:error] = 'Произошла ошибка!'
+      flash[:errors] = @user.errors.full_messages
       render 'new'
     end
   end

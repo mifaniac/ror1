@@ -1,8 +1,15 @@
 <h2>Петиция</h2>
-<h3><%= @petition.title %></h3>
-<div><%= @petition.created_at %></div>
-<div style="max-width: 560px; min-height: 300px"><%= @petition.description %></div>
-<div><strong>Голосов: </strong><%= @petition.votes.count %></div>
+<div class="panel panel-default">
+  <div class="panel-heading"><h3 class="panel-title"><b><%= @petition.title %></b></h3></div>
+  <div class="panel-body">
+    <div><i class="small"><%= @petition.created_at.strftime('%d/%m/%Y %H:%M') %></i></div>
+    <br>
+    <div><%= @petition.description %></div>
+  </div>
+</div>
+<br>
+<div><strong>Голосов: </strong> <span class="badge"> <%= @petition.votes.count %></span></div>
+<br>
 <div><% unless current_user == @petition.user %>
     <% if @petition.votes.where(:user_id => current_user.id).any? %>
       <%= "Вы уже поддержали данную петицию" %>

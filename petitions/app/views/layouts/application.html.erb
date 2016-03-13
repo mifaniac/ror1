@@ -9,35 +9,39 @@
 <body>
 
 <div class="container">
-  <div class="header">
-    <div id="title">Онлайн петиции нашего района</div>
-    <div id="login">
-      <% if current_user %>
-        <%= current_user.email %> | <%= link_to "(Выйти)", '/logout' %>
-      <% else %>
-        <%= link_to 'Зарегистрироваться', '/signup' %> | <%= link_to 'Войти', '/login' %>
-      <% end %>
+  <div class="row">
+    <div class="navbar well">
+      <div class="pull-left"><strong><%= link_to 'Онлайн петиции нашего района', root_path %></strong></div>
+      <div class="pull-right">
+        <% if current_user %>
+          <%= current_user.email %> <%= link_to raw("<i class='glyphicon glyphicon-log-out'></i> Выйти"), '/logout', class: "btn btn-default" %>
+        <% else %>
+          <%= link_to raw("<i class='glyphicon glyphicon-user'></i> Зарегистрироваться"), '/signup', class: "btn btn-default" %><%= link_to raw("<i class='glyphicon glyphicon-log-in'></i> Войти"), '/login', class: "btn btn-default" %>
+        <% end %>
+      </div>
+    </div>
+    <% if flash[:notice] %>
+      <div class="alert alert-success"><%= flash[:notice] %></div>
+    <% elsif errors = flash[:errors] %>
+      <% errors.size.times do %>
+      <div class="alert alert-danger"><%= errors.pop %></div>
+    <% end %>
+    <% end %>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8"> <%= yield %> </div>
+
+    <div class="col-md-4">   
+      <div class="well list-group">
+        <%= link_to raw("<i class='glyphicon glyphicon-th-list'></i> Все петиции"), '/?all=true', class: "list-group-item" %>
+        <%= link_to raw("<i class='glyphicon glyphicon-plus'></i> Создать петицию"), new_petition_path, class: "list-group-item" %>
+        <% if current_user %>
+         <%= link_to raw("<i class='glyphicon glyphicon-list-alt'></i> Мои петиции"), '/?my=true', class: "list-group-item" %>
+        <% end %>
+      </div>
     </div>
   </div>
-  <div class="content">
-    <% if flash[:notice] %>
-    <div class="notice"><%= flash[:notice] %></div>
-    <% end %>
-
-    <%= yield %>
-   </div>
-    
-  <div class="sidebar">
-   <ul>
-     <li><%= link_to 'Все петиции', '/?all=true' %></li>
-     <li><%= link_to 'Создать петицию', new_petition_path %></li>
-     <% if current_user %>
-     <li><%= link_to 'Мои петиции', '/?my=true' %>
-              <% end %>
-     </li>
-  </ul>
-  </div>
-
-
+</div>
 </body>
 </html>

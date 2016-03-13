@@ -8,7 +8,7 @@ class VotesController < ApplicationController
     if @vote.save
       redirect_to petition_path, notice: "Спасибо за ваш голос!"
     else
-      flash[:error] = 'Произошла ошибка! Попробуйте еще раз.'
+      flash[:errors] = ['Произошла ошибка! Попробуйте еще раз.']
       render 'new'
     end
 
