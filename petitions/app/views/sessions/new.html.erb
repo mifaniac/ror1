@@ -1,48 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Онлайн петиции нашего района</title>
-</head>
-<body>
-
-<div class="container">
-  <div class="header">
-    <div id="title">Онлайн петиции нашего района</div>
-    <div id="login">
-      <% if current_user %>
-        <%= current_user.email %> | <%= link_to "(Выйти)", '/logout' %>
-      <% else %>
-        <%= link_to 'Зарегистрироваться', '/signup' %> | <%= link_to 'Войти', '/login' %>
-      <% end %>
-
-      <%= yield %>
-    </div>
-  </div>
-  <div class="content">
-    <% if flash[:notice] %>
-    <div class="notice"><%= flash[:notice] %></div>
-    <% end %>
-    <h3>Вход</h3>
-    <%= form_tag '/login' do %>
-    Email: <br>
-    <%= text_field_tag :email %><br>
-    Пароль: <br>
-    <%= password_field_tag :password %><br>
-    <br>
-    <%= submit_tag "Войти" %>
-
-    <% end %>
-  </div>
-  <div class="sidebar">
-   <ul>
-     <li><%= link_to 'Все петиции', '/?all=true' %></li>
-     <li><%= link_to 'Создать петицию', new_petition_path %></li>
-     <% if current_user %>
-     <li><%= link_to 'Мои петиции', '/?my=true' %>
-              <% end %>
-     </li>
-  </ul>
-  </div>
-</div>
-</body>
-</html>
+<h3>Вход</h3>
+<%= form_tag '/login' do %>
+Email: <br>
+<%= text_field_tag :email %><br>
+Пароль: <br>
+<%= password_field_tag :password %><br>
+<br>
+<%= submit_tag "Войти" %>
+<% end %>

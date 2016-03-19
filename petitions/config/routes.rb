@@ -22,9 +22,15 @@ post '/users' => 'users#create'
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
-resources :petitions
+resources :petitions do
+  member do
+    post 'upvote'
+  end
+end
+
 resources :users
 resources :sessions
+resources :votes
   
   # Example resource route with options:
   #   resources :products do

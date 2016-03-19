@@ -1,41 +1,20 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Онлайн петиции нашего района</title>
-</head>
-<body>
-
-<div class="container">
-  <div class="header">
-    <div id="title">Онлайн петиции нашего района</div>
-    <div id="login">
-      <% if current_user %>
-        <%= current_user.email %> | <%= link_to "(Выйти)", '/logout' %>
-      <% else %>
-        <%= link_to 'Зарегистрироваться', '/signup' %> | <%= link_to 'Войти', '/login' %>
-      <% end %>
-
-      <%= yield %>
-    </div>
-  </div>
-  <div class="content">
-    <% if flash[:notice] %>
-    <div class="notice"><%= flash[:notice] %></div>
-    <% end %>
-    <h2>Петиция</h2>
-    <h3><%= @petition.title %></h3>
-    <div style="max-width: 560px; min-height: 300px"><%= @petition.description %>
-  </div>
-  <div class="sidebar">
-   <ul>
-     <li><%= link_to 'Все петиции', '/?all=true' %></li>
-     <li><%= link_to 'Создать петицию', new_petition_path %></li>
-     <% if current_user %>
-     <li><%= link_to 'Мои петиции', '/?my=true' %>
-              <% end %>
-     </li>
-  </ul>
+<h2>Петиция</h2>
+<div class="panel panel-default">
+  <div class="panel-heading"><h3 class="panel-title"><b><%= @petition.title %></b></h3></div>
+  <div class="panel-body">
+    <div><i class="small"><%= @petition.created_at.strftime('%d/%m/%Y %H:%M') %></i></div>
+    <br>
+    <div><%= @petition.description %></div>
   </div>
 </div>
-</body>
-</html>
+<br>
+<div><strong>Голосов: </strong> <span class="badge"> <%= @petition.votes.count %></span></div>
+<br>
+<div><% unless current_user == @petition.user %>
+    <% if @petition.votes.where(:user_id => current_user.id).any? %>
+      <%= "Вы уже поддержали данную петицию" %>
+    <% else %>
+      <%=  button_to "Поддержать", upvote_petition_path(@petition), method: :post %> 
+    <% end %>
+  <% end %>
+  </div>
