@@ -1,4 +1,5 @@
 class VotesController < ApplicationController
+  before_action :check_expired
   def new
   end
 
@@ -18,7 +19,9 @@ class VotesController < ApplicationController
     params.require(:votes).permit(:user_id, :petition_id)
   end
 
-
+  def check_expired
+    redirect_to petition_path if Petition.find(vote_params).expired?
+  end
 
 
 end

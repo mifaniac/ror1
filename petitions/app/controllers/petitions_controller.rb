@@ -36,7 +36,7 @@ class PetitionsController < ApplicationController
   end
 
   def petition_params
-    params.require(:petition).permit(:title, :description, :user_id, :date, :vote_id)
+    params.require(:petition).permit(:title, :description, :user_id, :date, :created_at, :vote_id)
   end
 
   def upvote
@@ -50,7 +50,7 @@ class PetitionsController < ApplicationController
   end
 
   def update
-    @petition = Petition.find(params[:id])
+    @petition = Petition.active.find(params[:id])
     if @petition.update(petition_params)
       flash[:notice] = "Петиция обновлена"
       redirect_to @petition
