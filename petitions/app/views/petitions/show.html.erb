@@ -14,7 +14,11 @@
     <% if @petition.votes.where(:user_id => current_user.id).any? %>
       <%= "Вы уже поддержали данную петицию" %>
     <% else %>
+      <% if @petition.expired? %>
+        <%= "Голосование за эту петицию окончено" %>
+      <% else %>
       <%=  button_to "Поддержать", upvote_petition_path(@petition), method: :post %> 
+      <% end %>
     <% end %>
   <% end %>
   </div>
